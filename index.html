@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forcast</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body
+    style="background-image: url('https://free4kwallpapers.com/uploads/originals/2015/09/16/weather-live-wallpaper-icon.jpg');">
+    <h1 style="color: blue; text-align: center;margin-top: 50px;">WEATHER</h1>
+    <button style="margin-left: 47%; margin-top: 20px;" onclick="weatherForcast()" type="button" class="btn btn-outline-warning">Click Here</button>
+    <div id="result">
+
+    </div>
+</body>
+<script>
+    const weatherForcast = async () => {
+        const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=8ac5c4d57ba6a4b3dfcf622700447b1e&units=metric")
+        const weatherDetails = await response.json()
+        const name = weatherDetails.name
+        const temp = weatherDetails.main.temp
+        const feelsLike = weatherDetails.main.feels_like
+        const country = weatherDetails.sys.country
+        const humidity = weatherDetails.main.humidity
+        const wind = weatherDetails.wind.speed
+        const pressure = weatherDetails.main.pressure
+        result.innerHTML = `
+        <div>
+            <div style="padding-left: 20px;width:100%">
+                <h1 style="font-size: 60px;;">${temp}</h1>
+                <h6>feels like ${feelsLike} </h6>
+                <h3>${name}</h3>
+                <h6>${getTimeData()}</h6>
+            </div>
+            <div
+                style="background-color: antiquewhite; width: 350px;height: 550px;margin-left: 75%;margin-bottom:100px ; border-radius: 10px;padding: 10px;">
+                <h6>${name}</h6>
+                <hr>
+                <h5>Weather Details</h5>
+                <h6 style="color: rgb(125, 121, 121);margin-top: 50px;">Country</h6>
+                <h6>${country}</h6>
+                <hr>
+                <h6 style="color: rgb(125, 121, 121);margin-top: 50px;">Humidity</h6>
+                <h6>${humidity}</h6>
+                <hr>
+                <h6 style="color: rgb(125, 121, 121);margin-top: 50px;">Wind</h6>
+                <h6>${wind}</h6>
+                <hr>
+                <h6 style="color: rgb(125, 121, 121);margin-top: 50px;">Pressure</h6>
+                <h6>${pressure}</h6>
+            </div>
+        </div>
+`
+    }
+    const getTimeData = () => {
+        const localTime = new Date()
+        return(localTime)
+    }
+   
+   
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+</html>
